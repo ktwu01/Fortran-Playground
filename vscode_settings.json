@@ -1,0 +1,37 @@
+{
+    "files.associations": {
+        "*.f90": "fortran",
+        "*.F90": "fortran",
+        "*.f": "fortran",
+        "*.F": "fortran",
+        "Makefile": "makefile"
+    },
+    "fortran.compiler": "gfortran",
+    "fortran.linter": {
+        "compiler": "gfortran",
+        "compilerPath": "gfortran"
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/src"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "code-runner.executorMap": {
+        "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt"
+    },
+    "files.exclude": {
+        "**/obj": true,
+        "**/bin": true,
+        "**/*.o": true,
+        "**/*.mod": true,
+        "**/bomb.*": true
+    }
+}
