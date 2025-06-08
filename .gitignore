@@ -1,0 +1,61 @@
+# Fortran-Playground .gitignore
+
+# 编译生成的文件
+*.o
+*.mod
+*.a
+*.so
+*.dylib
+*.exe
+
+# 构建目录
+obj/
+bin/
+build/
+
+# 生成的ZIP bomb文件
+*.zip
+bomb.*
+
+# 测试输出
+test/output/
+test/*.zip
+test/bomb.*
+
+# 临时文件
+*.tmp
+*.temp
+*~
+.DS_Store
+Thumbs.db
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+*.log
+
+# 系统文件
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Fortran特定
+*.mod
+*.smod
+
+# 调试文件
+core
+core.*
+*.dSYM/
+
+# 性能分析文件
+gmon.out
+*.gcda
+*.gcno
