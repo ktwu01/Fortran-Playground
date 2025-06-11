@@ -1,24 +1,3 @@
-# Fortran-Playground 完整文件清单
-
-## 必需的核心文件
-
-### 1. 构建系统
-- [x] `Makefile` - 主构建脚本（无后缀）
-- [ ] `.gitignore` - Git忽略文件
-
-### 2. 源代码文件 (src/ 目录)
-- [ ] `src/main.f90` - Fortran主程序入口
-- [ ] `src/interfaces.f90` - Fortran-C互操作接口
-- [ ] `src/zipbomb.cpp` - C++压缩引擎实现
-- [ ] `src/utils.c` - C系统工具函数
-
-### 3. 头文件 (include/ 目录)
-- [ ] `include/zipbomb.h` - C/C++函数声明
-
-### 4. 项目文档
-- [x] `README.md` - 项目说明文档
-- [ ] `LICENSE` - 开源许可证文件
-- [ ] `CHANGELOG.md` - 版本更新日志
 
 ## 推荐的附加文件
 
@@ -47,7 +26,7 @@
 
 ### 🔴 **立即需要** (核心功能)
 1. `src/main.f90`
-2. `src/interfaces.f90` 
+2. `src/interfaces.f90`
 3. `src/zipbomb.cpp`
 4. `src/utils.c`
 5. `include/zipbomb.h`
