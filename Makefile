@@ -6,10 +6,26 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
+# 检测操作系统
+UNAME_S := $(shell uname -s)
+
 # 编译标志
 FFLAGS = -std=f2008 -Wall -Wextra -g -O2
 CFLAGS = -Wall -Wextra -g -O2 -fPIC
 CXXFLAGS = -std=c++17 -Wall -Wextra -g -O2 -fPIC
+
+# macOS特殊设置
+ifeq ($(UNAME_S),Darwin)
+    # macOS上使用Homebrew安装的真正GCC
+    FC = gfortran
+    CC = gcc
+    CXX = g++
+    # 添加链接标志
+    LDFLAGS = -lstdc++
+else
+    # Linux设置
+    LDFLAGS = -lstdc++
+endif
 
 # 目录设置
 SRCDIR = src
@@ -54,7 +70,13 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 
 # 链接主程序
 $(TARGET): $(FOBJ) $(COBJ) $(CXXOBJ) | $(BINDIR)
-	$(FC) $(FFLAGS) -o $@ $^ -lstdc++ -lz
+ifeq ($(UNAME_S),Darwin)
+	# macOS: 使用g++进行最终链接，添加gfortran库路径
+	$(CXX) $(CXXFLAGS) -o $@ $^ -L/opt/homebrew/lib/gcc/15 -lgfortran -lquadmath
+else
+	# Linux: 使用gfortran链接
+	$(FC) $(FFLAGS) -o $@ $^ $(LDFLAGS)
+endif
 
 # 清理
 clean:

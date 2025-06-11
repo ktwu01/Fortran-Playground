@@ -382,7 +382,7 @@ void create_zipbomb(const char* filename) {
         return;
     }
 
-    int result = ZipBombGenerator::create_zipbomb_internal(filename, g_config);
+    int result = ZipBombGenerator::create_zipbomb_internal(filename, ZipBombGenerator::g_config);
     if (result != ZIPBOMB_SUCCESS) {
         std::cerr << "ZIP炸弹生成失败，错误代码: " << result << std::endl;
     }
@@ -397,13 +397,13 @@ int create_zipbomb_with_config(const char* filename, const zipbomb_config_t* con
 }
 
 void set_compression_params(int target_size, int compression_level) {
-    g_config.target_size_mb = target_size;
-    g_config.compression_level = compression_level;
+    ZipBombGenerator::g_config.target_size_mb = target_size;
+    ZipBombGenerator::g_config.compression_level = compression_level;
     ZipBombGenerator::log_message("压缩参数已更新");
 }
 
 zipbomb_config_t get_default_config(void) {
-    return g_config;
+    return ZipBombGenerator::g_config;
 }
 
 void cleanup_resources(void) {
@@ -411,11 +411,11 @@ void cleanup_resources(void) {
 }
 
 void set_verbose_logging(int enable) {
-    g_verbose_logging = (enable != 0);
+    ZipBombGenerator::g_verbose_logging = (enable != 0);
 }
 
 void debug_log(const char* message) {
-    if (message && g_verbose_logging) {
+    if (message && ZipBombGenerator::g_verbose_logging) {
         std::cout << "[调试] " << message << std::endl;
     }
 }
@@ -425,11 +425,11 @@ void error_log(int error_code, const char* message) {
 }
 
 double get_compression_ratio(void) {
-    return g_compression_ratio;
+    return ZipBombGenerator::g_compression_ratio;
 }
 
 double get_processing_time(void) {
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(g_end_time - g_start_time);
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(ZipBombGenerator::g_end_time - ZipBombGenerator::g_start_time);
     return duration.count() / 1000.0;
 }
 
