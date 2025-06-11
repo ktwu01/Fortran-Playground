@@ -1,106 +1,106 @@
-# Fortran ZIP炸弹教学项目
+# Fortran ZIP Bomb Educational Project
 
-## ⚠️ 安全警告
-**本项目仅用于教学和研究目的！**
-- 禁止用于恶意攻击网站或系统
-- 使用前请确保在安全的测试环境中运行
-- 生成的文件可能消耗大量磁盘空间和内存
-- 请遵守相关法律法规和道德规范
+## ⚠️ Security Warning
+**This project is for educational and research purposes only!**
+- Do not use for malicious attacks on websites or systems
+- Ensure testing in a secure environment before use
+- Generated files may consume significant disk space and memory
+- Please comply with relevant laws, regulations, and ethical standards
 
-## 项目简介
+## Project Overview
 
-这是一个多语言协作的教学演示项目，展示如何使用 **Fortran + C++ + C** 创建一个ZIP炸弹生成器。项目演示了：
+This is a multi-language collaborative educational demonstration project showcasing how to create a ZIP bomb generator using **Fortran + C++ + C**. The project demonstrates:
 
-- 现代Fortran与C/C++的混合编程
-- 文件压缩算法的实现原理
-- 系统级编程概念
-- 网络安全中的压缩炸弹攻击原理
+- Modern Fortran and C/C++ hybrid programming
+- File compression algorithm implementation principles
+- System-level programming concepts
+- Compression bomb attack principles in cybersecurity
 
-## 工作原理
+## How It Works
 
 ```
-小文件 (几KB) → 解压后 → 巨大文件 (10GB+)
+Small file (few KB) → Decompressed → Huge file (10GB+)
 ```
 
-通过创建高度重复的数据模式，利用压缩算法的特性，实现极高的压缩比。当目标系统解压时，会消耗大量资源。
+By creating highly repetitive data patterns and leveraging compression algorithm characteristics, it achieves an extremely high compression ratio. When the target system decompresses, it consumes substantial resources.
 
-## 环境要求
+## Environment Requirements
 
-### 必需软件
-- **VSCode** + Modern Fortran扩展
-- **gfortran** (GNU Fortran编译器)
-- **g++** (GNU C++编译器)
-- **gcc** (GNU C编译器)
-- **make** 构建工具
+### Required Software
+- **VSCode** + Modern Fortran extension
+- **gfortran** (GNU Fortran compiler)
+- **g++** (GNU C++ compiler)
+- **gcc** (GNU C compiler)
+- **make** build tool
 
-### 推荐配置
+### Recommended Setup
 ```bash
-# macOS (使用Homebrew)
+# macOS (using Homebrew)
 brew install gcc make
 
 # Linux (Ubuntu/Debian)
 sudo apt install gfortran g++ gcc make
 
-# 验证安装
+# Verify installation
 gfortran --version
 g++ --version
 gcc --version
 ```
 
-## 快速开始
+## Quick Start
 
-### 1. 克隆仓库
+### 1. Clone Repository
 ```bash
 git clone https://github.com/ktwu01/Fortran-Playground.git
 cd Fortran-Playground
 ```
 
-### 2. 编译项目
+### 2. Compile Project
 ```bash
 make zipbomb
 ```
 
-### 3. 运行程序
+### 3. Run Program
 ```bash
 ./zipbomb
 ```
 
-程序将生成一个名为 `bomb.zip` 的文件（约5KB），解压后大小约10GB。
+The program will generate a file named `bomb.zip` (~5KB) that expands to approximately 10GB when decompressed.
 
-## 项目结构
+## Project Structure
 
 ```
 Fortran-Playground/
 ├── src/
-│   ├── main.f90           # Fortran主程序
-│   ├── zipbomb.cpp        # C++ ZIP生成模块
-│   ├── utils.c            # C 系统工具函数
-│   └── interfaces.f90     # Fortran-C接口定义
+│   ├── main.f90           # Fortran main program
+│   ├── zipbomb.cpp        # C++ ZIP generation module
+│   ├── utils.c            # C system utility functions
+│   └── interfaces.f90     # Fortran-C interface definitions
 ├── include/
-│   └── zipbomb.h          # C/C++头文件
-├── Makefile               # 构建脚本
-└── README.md             # 项目说明
+│   └── zipbomb.h          # C/C++ header file
+├── Makefile               # Build script
+└── README.md             # Project documentation
 ```
 
-## 核心代码解析
+## Core Code Analysis
 
-### Fortran主控制器 (main.f90)
+### Fortran Main Controller (main.f90)
 ```fortran
 program zipbomb_generator
     use iso_c_binding
     implicit none
     
-    ! 调用C++函数生成ZIP炸弹
+    ! Call C++ function to generate ZIP bomb
     call create_zipbomb(c_char_"bomb.zip"//c_null_char)
     
-    write(*,*) '⚠️  ZIP炸弹已生成: bomb.zip'
-    write(*,*) '文件大小: ~5KB'
-    write(*,*) '解压后大小: ~10GB'
-    write(*,*) '请在安全环境中测试！'
+    write(*,*) '⚠️  ZIP bomb generated: bomb.zip'
+    write(*,*) 'File size: ~5KB'
+    write(*,*) 'Decompressed size: ~10GB'
+    write(*,*) 'Please test in a safe environment!'
 end program
 ```
 
-### C++压缩引擎 (zipbomb.cpp)
+### C++ Compression Engine (zipbomb.cpp)
 ```cpp
 #include <iostream>
 #include <fstream>
@@ -111,22 +111,22 @@ extern "C" {
 }
 
 void create_zipbomb(const char* filename) {
-    // 生成高重复性数据
-    std::string pattern(1024*1024, 'A'); // 1MB重复字符
+    // Generate highly repetitive data
+    std::string pattern(1024*1024, 'A'); // 1MB repeated characters
     
-    // 创建ZIP文件结构
-    // 利用ZIP格式的重复数据压缩特性
-    // 实现小文件→大解压的效果
+    // Create ZIP file structure
+    // Leverage ZIP format's repetitive data compression features
+    // Achieve small file → large decompression effect
 }
 ```
 
-### C系统接口 (utils.c)
+### C System Interface (utils.c)
 ```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
-// 获取文件大小
+// Get file size
 long get_file_size(const char* filename) {
     struct stat st;
     if (stat(filename, &st) == 0) {
@@ -136,125 +136,125 @@ long get_file_size(const char* filename) {
 }
 ```
 
-## 编译选项详解
+## Compilation Options Explained
 
 ```makefile
-# Makefile核心配置
+# Makefile core configuration
 FC = gfortran
 CC = gcc  
 CXX = g++
 
-# 编译标志
+# Compilation flags
 FFLAGS = -std=f2008 -Wall -Wextra -g
 CFLAGS = -Wall -Wextra -g
 CXXFLAGS = -std=c++17 -Wall -Wextra -g
 
-# 链接多语言目标文件
+# Link multi-language object files
 zipbomb: main.o zipbomb.o utils.o
 	$(FC) $(FFLAGS) -o $@ $^ -lstdc++
 ```
 
-## 学习要点
+## Learning Points
 
-### 1. 多语言互操作
-- Fortran通过 `iso_c_binding` 调用C函数
-- C++提供高级文件处理功能
-- C处理底层系统调用
+### 1. Multi-Language Interoperability
+- Fortran calls C functions through `iso_c_binding`
+- C++ provides advanced file processing capabilities
+- C handles low-level system calls
 
-### 2. 压缩算法原理
-- 重复数据检测
-- 字典压缩技术
-- 压缩比优化策略
+### 2. Compression Algorithm Principles
+- Repetitive data detection
+- Dictionary compression techniques
+- Compression ratio optimization strategies
 
-### 3. 系统编程概念
-- 文件I/O操作
-- 内存管理
-- 跨平台兼容性
+### 3. System Programming Concepts
+- File I/O operations
+- Memory management
+- Cross-platform compatibility
 
-## 测试和验证
+## Testing and Verification
 
-### 安全测试环境
+### Safe Testing Environment
 ```bash
-# 创建测试目录
+# Create test directory
 mkdir test_env
 cd test_env
 
-# 生成ZIP炸弹
+# Generate ZIP bomb
 ../zipbomb
 
-# 检查文件大小
+# Check file size
 ls -lh bomb.zip
 
-# ⚠️ 谨慎解压测试
-# unzip bomb.zip  # 注意：会生成大文件！
+# ⚠️ Cautious decompression test
+# unzip bomb.zip  # Warning: Will generate large files!
 ```
 
-### 性能分析
-- 压缩比计算
-- 生成时间测量
-- 内存使用监控
+### Performance Analysis
+- Compression ratio calculation
+- Generation time measurement
+- Memory usage monitoring
 
-## 故障排除
+## Troubleshooting
 
-### 常见问题
+### Common Issues
 
-**编译错误：找不到gfortran**
+**Compilation error: gfortran not found**
 ```bash
-# 检查编译器路径
+# Check compiler path
 which gfortran
-# 如果没有，重新安装gcc套件
+# If not found, reinstall gcc suite
 ```
 
-**链接错误：undefined reference**
+**Link error: undefined reference**
 ```bash
-# 检查库链接顺序
-# 确保-lstdc++在最后
+# Check library linking order
+# Ensure -lstdc++ is at the end
 ```
 
-**运行时错误：权限不足**
+**Runtime error: insufficient permissions**
 ```bash
-# 确保有写入权限
+# Ensure write permissions
 chmod +w .
 ```
 
-## 扩展功能
+## Extended Features
 
-### 进阶实现
-- 支持不同压缩格式（7z, RAR）
-- 可配置压缩参数
-- 批量生成功能
-- 图形界面
+### Advanced Implementation
+- Support for different compression formats (7z, RAR)
+- Configurable compression parameters
+- Batch generation functionality
+- Graphical interface
 
-### 性能优化
-- 并行压缩算法
-- 内存映射文件
-- 流式处理
+### Performance Optimization
+- Parallel compression algorithms
+- Memory-mapped files
+- Stream processing
 
-## 相关资源
+## Related Resources
 
-### 学习材料
-- [Modern Fortran教程](https://fortran-lang.org/)
-- [C++17标准文档](https://en.cppreference.com/)
-- [ZIP文件格式规范](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
+### Learning Materials
+- [Modern Fortran Tutorial](https://fortran-lang.org/)
+- [C++17 Standard Documentation](https://en.cppreference.com/)
+- [ZIP File Format Specification](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)
 
-### 开发工具
-- [VSCode Fortran扩展](https://marketplace.visualstudio.com/items?itemName=fortls.fortls)
-- [GNU编译器套件](https://gcc.gnu.org/)
+### Development Tools
+- [VSCode Fortran Extension](https://marketplace.visualstudio.com/items?itemName=fortls.fortls)
+- [GNU Compiler Collection](https://gcc.gnu.org/)
 
-## 贡献指南
+## Contributing Guidelines
 
-欢迎提交Pull Request和Issue！
+Pull Requests and Issues are welcome!
 
-### 开发规范
-- 代码注释使用中文
-- 遵循各语言的标准风格
-- 添加适当的错误处理
-- 编写测试用例
+### Development Standards
+- Code comments in English
+- Follow standard style for each language
+- Add appropriate error handling
+- Write test cases
 
-## 许可证
+## License
 
-本项目仅用于教育目的，请勿用于非法用途。
+This project is for educational purposes only. Do not use for illegal purposes.
 
 ---
 
-**再次提醒：本工具仅供学习研究，请在安全环境中使用！**
+**Reminder: This tool is for learning and research only. Please use in a safe environment!**
